@@ -25,8 +25,10 @@ train_X, test_X, train_y, test_y = train_test_split(
 
 
 print('RBF')
+melhorNeuronios = 0
+melhorResultado = 0
 for n in range(2, 10):
-    nn = rbnn.RBNN(4, n, 3)
+    nn = rbnn.RBNN(4, n, 3, n)
     nn.train(train_X, train_y, 0.5)
     total = 0
     acertos = 0
@@ -42,14 +44,22 @@ for n in range(2, 10):
         total += 1
         if(expt == pred):
             acertos += 1
+    if (acertos/total) > melhorResultado:
+        melhorResultado = acertos/total
+        melhorNeuronios = n
 
     print('Resultado de ', n, ' neuronios')
     print('total de acertos ', acertos/total)
+
+print('Melhor Resultado de ', melhorNeuronios, ' neuronios')
+print('total de acertos ', melhorResultado)
+
 
 train_X, test_X, train_y, test_y = train_test_split(
     iris_in, iris_o, test_size=0.25, random_state=21)
 
 
+exit()
 print('MLP')
 resultadoAnterior = 0
 melhorNeuronios = 0
